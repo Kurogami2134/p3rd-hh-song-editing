@@ -20,18 +20,6 @@ class Track:
         return f'ADPCM Track - {self.duration:.3f}s {self.frequency}Hz {self.channels+1}ch'
 
 
-def findSection(header: bytes, target: bytes) -> int:
-    offset: int = 0
-    section: bytes = header[offset:offset+4]
-    section_size: int = unpack("<I", header[offset+4:offset+8])[0]
-    while section != target:
-        offset += section_size
-        section = header[offset:offset+4]
-        section_size = unpack("<I", header[offset+4:offset+8])[0]
-    
-    return offset
-
-
 def parseVagi(header: bytes, offset: int) -> list[tuple[int, int, int]]:
     tracks: list[tuple[int, int, int]] = []
     offset += 0x8
@@ -59,8 +47,10 @@ def read(header: str, snd_data: str | None = None) -> tuple[list[Track], bytes]:
             HEADER = vag.read(hdr_size)
             SOUNDS = vag.read()
     
+    vagi: int = unpack("I", HEADER[0x1C:0x20])[0]
+    
     tracks: Track = []
-    for track in parseVagi(HEADER, findSection(HEADER, b'Vagi')):
+    for track in parseVagi(HEADER, vagi):
         tracks.append(
             Track(SOUNDS[track[0]:track[0]+track[1]], track[2], track[3], track[4], track[0])
         )
@@ -101,7 +91,7 @@ def rebuild(path: str) -> None:
     with open(f'{path}/TRACKS.TXT', "r", encoding="utf-8") as file:
         tracks = [(int(line.split(" ")[-2].replace("Hz", "")), int(line.split(" ")[-1].split("ch")[0])) for line in file.readlines()]
     
-    vagi: int = findSection(HEADER, b'Vagi')
+    vagi: int = unpack("I", HEADER[0x1C:0x20])[0]
     
     TRACK_INFO = []
     DATA: bytes = b''

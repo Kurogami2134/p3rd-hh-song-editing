@@ -21,11 +21,6 @@ def decode(base, new) -> None:
             
             sample = ((sample & 7) - (sample & 8)) << (12 - shift)
 
-            #print(sample)
-
-            if i & 1:
-                ...#exit()
-
             match filter:
                 case 0:  # no filter
                     pass
