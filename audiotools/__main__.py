@@ -21,7 +21,7 @@ if __name__ == "__main__":
     match sys.argv[1]:
         case "extract":
             extract(*sys.argv[2:])
-            print(f'Extracting to "{sys.argv[2].split(".")[0]}_snd"')
+            print(f'Extracting to "{sys.argv[2].split(".")[0]}"')
         case "rebuild":
             rebuild(sys.argv[2])
             print(f'Creating "{sys.argv[2]}.head" and "{sys.argv[2]}.snd"')
@@ -40,7 +40,7 @@ if __name__ == "__main__":
                     freq=info.frequency,
                     sample=16
                 )
-            print(f'Extracting to "{dir}_snd"')
+            print(f'Extracting to "{dir}"')
         case "encode":
             if len(sys.argv) < 4:
                 usage()

@@ -12,12 +12,8 @@ class Track:
         self.interleave: int = interleave
         self.offset: int = addr
     
-    @property
-    def duration(self) -> int:
-        return len(self.data)/(self.frequency * 2 * self.channels+1)
-    
     def __str__(self):
-        return f'ADPCM Track - {self.duration:.3f}s {self.frequency}Hz {self.channels+1}ch'
+        return f'ADPCM Track - {self.frequency}Hz {self.channels+1}ch'
 
 
 def parseVagi(header: bytes, offset: int) -> list[tuple[int, int, int]]:
@@ -130,7 +126,7 @@ if __name__ == "__main__":
     match sys.argv[1]:
         case "extract":
             extract(*sys.argv[2:])
-            print(f'Extracting to "{sys.argv[2].split(".")[0]}_snd"')
+            print(f'Extracting to "{sys.argv[2].split(".")[0]}"')
         case "rebuild":
             rebuild(sys.argv[2])
             print(f'Creating "{sys.argv[2]}.head" and "{sys.argv[2]}.snd"')
