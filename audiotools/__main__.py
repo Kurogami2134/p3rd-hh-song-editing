@@ -28,7 +28,7 @@ if __name__ == "__main__":
         case "decode":
             if len(sys.argv) < 6:
                 usage()
-            adpcm2wav(sys.argv[2], sys.argv[3], sys.argv[5], sys.argv[4])
+            adpcm2wav(sys.argv[2], sys.argv[3], int(sys.argv[5]), int(sys.argv[4]))
         case "ex-decode":
             tracks = extract(*sys.argv[2:])
             dir: str = f'{sys.argv[2].split(".")[0]}_snd'

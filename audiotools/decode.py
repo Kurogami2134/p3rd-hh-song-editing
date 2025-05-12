@@ -62,4 +62,4 @@ if __name__ == "__main__":
         print("usage: python decode.py <inputfile> <outputfile> <frequency> <channels>")
         exit()
     
-    adpcm2wav(sys.argv[1], sys.argv[2], sys.argv[4], sys.argv[3])
+    adpcm2wav(sys.argv[1], sys.argv[2], int(sys.argv[4]), int(sys.argv[3]))
