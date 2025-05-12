@@ -10,7 +10,7 @@ def usage() -> None:
     print("                            extract      <header+data>")
     print("                            ex-decode    <header+data>")
     print("                            rebuild      <folder>")
-    print("                            decode       <inputfile <outputfile>")
+    print("                            decode       <inputfile <outputfile> <frequency> <channels>")
     print("                            encode       <inputfile <outputfile>")
     exit()
 
@@ -26,9 +26,9 @@ if __name__ == "__main__":
             rebuild(sys.argv[2])
             print(f'Creating "{sys.argv[2]}.head" and "{sys.argv[2]}.snd"')
         case "decode":
-            if len(sys.argv) < 4:
+            if len(sys.argv) < 6:
                 usage()
-            adpcm2wav(sys.argv[2], sys.argv[3])
+            adpcm2wav(sys.argv[2], sys.argv[3], sys.argv[5], sys.argv[4])
         case "ex-decode":
             tracks = extract(*sys.argv[2:])
             dir: str = f'{sys.argv[2].split(".")[0]}_snd'

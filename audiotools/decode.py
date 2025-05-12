@@ -59,7 +59,7 @@ def adpcm2wav(adpcm_path: str, wav_path: str, channels: int = 1, freq: int = 160
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("usage: python decode.py <inputfile> <outputfile>")
+        print("usage: python decode.py <inputfile> <outputfile> <frequency> <channels>")
         exit()
     
-    adpcm2wav(sys.argv[1], sys.argv[2])
+    adpcm2wav(sys.argv[1], sys.argv[2], sys.argv[4], sys.argv[3])
